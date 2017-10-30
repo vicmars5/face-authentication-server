@@ -1,6 +1,5 @@
 const express = require('express')
 const bcrypt = require('../utils/bcrypt')
-
 const { User } = require('../models')
 
 const router = express.Router()
@@ -15,12 +14,19 @@ router
       next(err)
     }
   })
+  .get('/:id', async (req, res, next) => {
+    const user = await User.findOne({}).lean()
+    res.json({
+      data: user
+    })
+  })
   .post('/', async (req, res, next) => {
     try {
 
       const params = {
         email: req.body.email,
-        password: await bcrypt.hash(req.body.password)
+        password: await bcrypt.hash(req.body.password),
+        photos: []
       }
 
       if (typeof params.email !== 'string' && typeof params.password !== '') {
@@ -34,6 +40,5 @@ router
       next(err)
     }
   })
-
 
 module.exports = router

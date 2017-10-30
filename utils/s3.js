@@ -1,10 +1,7 @@
 const aws = require('aws-sdk')
+const config = require('../config').s3
 
-const s3 = new aws.S3({
-  endpoint: 'nyc3.digitaloceanspaces.com',
-  accessKeyId: 'R7P2OBCF5RQQVEPELNXU',
-  secretAccessKey: 'LjdThJj1Xl7vCVomspWRjAl0tapiZ0bIX1YccUfqyXE'
-})
+const s3 = new aws.S3(config)
 
 module.exports = s3
 
