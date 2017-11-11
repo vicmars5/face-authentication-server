@@ -71,7 +71,7 @@ router
       const id = req.params.id
       const userId = req.body.user_id
       if (!id || !user_id) {
-        next(new Error('Bad request. body.user_id and params.id are required')
+        next(new Error('Bad request. body.user_id and params.id are required'))
       }
 
       const group = await PersonGroup.findById(id)
@@ -96,7 +96,7 @@ router
   * @param {array<string>} req.body.members - Person group members. Reference
   *     to user.
   */
-  .put('/:id', (req, res, next) => {
+  .put('/:id', async (req, res, next) => {
     try {
       const id = req.params.id
       if (!id) {

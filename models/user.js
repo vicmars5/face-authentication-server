@@ -6,7 +6,11 @@ const userSchema = mongoose.Schema({
   photos: [{
     key: { type: String, required: true },
     createdAt: { type: Date, default: Date.now(), required: true }
-  }]
+  }],
+  personGroup: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'persongroup'
+  }
 })
 
 const User = mongoose.model('user', userSchema)
