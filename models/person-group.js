@@ -7,4 +7,3 @@ const personGroupSchema = mongoose.Schema({
 const PersonGroup = mongoose.model('persongroup', personGroupSchema)
 
 module.exports = PersonGroup
-

@@ -9,10 +9,7 @@ router
    * @returns {object} - Person groups array
    */
   .get('/', async (req, res, next) => {
-    const groups = await PersonGroup
-      .find({})
-      .populate('members')
-      .lean()
+    const groups = await PersonGroup.find({}).lean()
     res.json({
       data: groups
     })
@@ -53,8 +50,14 @@ router
         return
       }
       const group = await PersonGroup.create({ name })
+      const fgroup = await FaceAPI.createPersonGroup(group.id, {
+        name:  group.name
+      })
       res.json({
-        data: group.toJSON()
+        data: {
+          db: group.toJSON(),
+          group: fgroup
+        }
       })
     } catch (error) {
       next(error)

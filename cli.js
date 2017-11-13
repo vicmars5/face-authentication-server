@@ -9,13 +9,12 @@ program
   .description('List person groups')
   .action( async () => {
     try {
-      const res = await faceAPI.getPersonGroups()
+      const groups = await faceAPI.getPersonGroups()
       console.log('Person groups')
-      console.log(JSON.stringify(res.data))
+      console.log(JSON.stringify(groups, null, 2))
     } catch (error) {
       console.error(error)
-    }
-  })
+    } })
 
 program
   .command('-h, --help')
