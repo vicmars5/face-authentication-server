@@ -1,7 +1,7 @@
 const jwt = require('jwt-simple')
 const { secret } = require('../config').jwt
 
-const encode = (token) => {
+const encode = (data) => {
   return jwt.encode(data, secret)
 }
 

@@ -11,7 +11,7 @@ module.exports = {
     secretAccessKey: 'LjdThJj1Xl7vCVomspWRjAl0tapiZ0bIX1YccUfqyXE'
   },
   s3Bucket: 'face-recognition',
-  s3ExpiresLinkTime: 10,
+  s3ExpiresLinkTime: 600,
   face: {
     endpoint: 'https://westus.api.cognitive.microsoft.com/face/v1.0',
     // bucket name: face-api-udg

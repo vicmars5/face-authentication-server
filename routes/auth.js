@@ -1,4 +1,4 @@
-const express = require('express')
+  const express = require('express')
 const bcrypt = require('../utils/bcrypt')
 const jwt = require('../utils/jwt')
 
@@ -11,6 +11,7 @@ router
     try {
       const email = req.body.email
       const password = req.body.password
+      console.log('email:', email, ' password', password);
 
       if (typeof email !== 'string') {
         res.status(400)

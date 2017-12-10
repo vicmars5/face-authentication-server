@@ -35,11 +35,18 @@ router
       file: req.file
     })
   })
+  /**
+   *  Upload photo to user
+   * @param {string} req.params.id - User id
+   * @return {object} - response.user, response.sharelink
+   */
   .post('/:id', async (req, res, next) => {
     const id = req.params.id
+
     if (!id) {
       next(new Error('Param id not found'))
     }
+
     try {
       const user = await User.findById(id)
       if (!user) {
@@ -62,7 +69,7 @@ router
       const sharelink = await getShareLink(file.key)
 
       user.photos.push({
-        key: file.key,
+        key: file.key
       })
 
       console.log('file pushed')
