@@ -7,6 +7,7 @@ const userSchema = mongoose.Schema({
   password: { type: String, required: true, select: false },
   photos: [{
     key: { type: String, required: true },
+    persistedFaceId: { type: String, required: false },
     createdAt: { type: Date, default: Date.now(), required: true }
   }],
   faceApiId: { type: String, required: false },

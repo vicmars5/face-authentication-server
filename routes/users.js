@@ -8,7 +8,7 @@ const router = express.Router()
 router
   .get('/', async (req, res, next) => {
     try {
-      const users = await User.find({}).lean()
+      const users = await User.find({}).populate('personGroup').lean()
       res.json(users)
     } catch (err) {
       next(err)
@@ -90,8 +90,6 @@ router
       next(err)
     }
   })
-  /**
-  */
   .post('/:id/photo', async (req, res, next) => {
     try {
       const id = req.params.id

@@ -99,14 +99,16 @@ const getPersons = async (personGroupId, params) => {
 *   be added to a person, in the format of "targetFace=left,top,width,height".
 *   E.g. "targetFace=10,10,100,100". If there is more than one face in the
 *   image, targetFace is required to specify which face to add. No targetFace
-*   means there is only one face detected in the entire image. 
+*   means there is only one face detected in the entire image.
 * @params {object} body
 * @params {string} body.url - Face image URL. Valid image size is from 1KB to 4MB. Only one face is allowed per image.
+*
+* @return {object} - This object contains the face id. Example: { "persistedFaceId": "B8D802CF-DD8F-4E61-B15C-9E6C5844CCBA" }
 * Reference: https://westus.dev.cognitive.microsoft.com/docs/services/563879b61984550e40cbbe8d/operations/563879b61984550f3039523b
 */
 const postPersonFace = async (personGroupId, personId, params, body) => {
   const options = {
-    params 
+    params
   }
 
   const res = await http.post(`persongroups/${personGroupId}/persons/${personId}/persistedFaces`,
@@ -121,5 +123,7 @@ module.exports = {
   createPersonGroup,
   deletePersonGroup,
   getPersonGroups,
+  getPersons,
+  postPersonFace,
   createPerson
 }
