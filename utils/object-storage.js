@@ -58,8 +58,6 @@ const getShareLink = (key, params) => {
       }
     }
 
-    console.log('getObject with params:', defParams)
-
     s3.getSignedUrl('getObject', defParams, (err, url) => {
       if (err) {
         reject(err)

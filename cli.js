@@ -17,6 +17,30 @@ program
     } })
 
 program
+  .command('train-person-group <group-id>')
+  .description('Queue a person group training task, the training task may not be started immediately.')
+  .action(async (groupId) => {
+    try {
+      const res = await faceAPI.trainPersonGroup(groupId)
+      console.log('response:', res)
+    } catch (err) {
+      console.error(err)
+    }
+  })
+
+program
+  .command('train-person-group-status <group-id>')
+  .description('Retrieve the training status of a person group')
+  .action(async (personGroupId) => {
+    try {
+      const res = await faceAPI.trainPersonGroupStatus(personGroupId)
+      console.log('response:', res)
+    } catch (err) {
+      console.error(err)
+    }
+  })
+
+program
   .command('list-persons <group-id>')
   .description('List persons')
   .action(async (groupId) => {
@@ -40,7 +64,7 @@ program
         photoUrl
       }
       const params = {
-        userData: JSON.stringify(userData) 
+        userData: JSON.stringify(userData)
       }
       const body = {
         url: photoUrl
@@ -49,6 +73,31 @@ program
       console.log('Response: ', res)
     } catch (err) {
       console.error(err)
+    }
+  })
+
+program
+  .command('detect-photo <group-id> <photo-path>')
+  .description('MS Desc: Detect human faces in an image and returns face locations, and optionally with faceIds, landmarks, and attributes.')
+  .action(async (groupId, photoPath) => {
+    try {
+      const res = await faceAPI.detectFace(photoPath)
+      console.log('response', res)
+    } catch (err) {
+      console.error(err)
+    }
+  })
+
+program
+  .command('identify-photo <face-id> <person-group-id>')
+  .description('Find possible person in persongroup')
+  .action(async (faceId, personGroupId) => {
+    try {
+      const res = await faceAPI.identifyFace([faceId], personGroupId)
+      console.log('response: ')
+      console.log(JSON.stringify(res, null, 2))
+    } catch (err) {
+      console.error(err.response.data)
     }
   })
 

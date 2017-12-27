@@ -59,6 +59,31 @@ const getPersonGroups = async (params) => {
 }
 
 /**
+ * Queue a person group training task, the training task may not be started immediately.
+ *
+ * @param {string} personGroupId
+ *
+ * @return {object} - Object with status 202
+ */
+const trainPersonGroup = async (personGroupId) => {
+  const res = await http.post(`persongroups/${personGroupId}/train`)
+  return res.data
+}
+
+/**
+ * MS Desc: Retrieve the training status of a person group (completed or
+ *    ongoing). Training can be triggered by the Person Group - Train Person
+ *    Group API. The training will process for a while on the server
+ *    side..
+ *
+ * @param {string} personGroupId
+ */
+const trainPersonGroupStatus = async (personGroupId) => {
+  const res = await http.get(`persongroups/${personGroupId}/training`)
+  return res.data
+}
+
+/**
 * Add person to group
 * @params {string} personGroupId
 * @params {object} body
@@ -119,11 +144,52 @@ const postPersonFace = async (personGroupId, personId, params, body) => {
   return res.data
 }
 
+/**
+ * @param {string} url - Face photo URL
+ * @param {string} params - Face params
+ *
+ * @return {object}
+ * @return {object} .faceId
+ */
+const detectFace = async (url, params) => {
+  try {
+    const options = { params }
+    const res = await http.post('detect', { url }, options)
+    return res.data
+  } catch (err) {
+    throw err
+  }
+}
+
+/**
+ *
+ * @param {array<string>} faceIds - Face ids arrays
+ * @param {string} personGroupId - Person group id in search
+ */
+const identifyFace = async (faceIds, personGroupId ) => {
+  const options = {
+  }
+
+  const body = {
+    personGroupId,
+    faceIds,
+    maxNumOfCandidatesReturned: 1,
+    confidenceThreshold: 0.5
+  }
+
+  const res = await http.post('identify/', body, options)
+  return res.data
+}
+
 module.exports = {
   createPersonGroup,
   deletePersonGroup,
   getPersonGroups,
+  trainPersonGroup,
+  trainPersonGroupStatus,
   getPersons,
   postPersonFace,
-  createPerson
+  createPerson,
+  detectFace,
+  identifyFace
 }
