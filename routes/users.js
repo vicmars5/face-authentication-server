@@ -8,8 +8,9 @@ const router = express.Router()
 router
   .get('/', async (req, res, next) => {
     try {
+      console.log('req.user ', req.user)
       const users = await User.find({}).populate('personGroup').lean()
-      res.json(users)
+      res.json({ users })
     } catch (err) {
       next(err)
     }
@@ -46,7 +47,7 @@ router
         email: req.body.email,
         password: await bcrypt.hash(req.body.password),
         photos: [],
-        personGroup: req.body.personGroupId 
+        personGroup: req.body.personGroupId
       }
 
       if (typeof params.email !== 'string' && typeof params.password !== '') {

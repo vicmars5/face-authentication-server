@@ -41,7 +41,7 @@ router
       const valid = await bcrypt.compare(password, user.password)
       console.log(`${password} === ${user.password} > ${valid}`)
       if (valid) {
-        const token = jwt.encode(user.toObject())
+        const token = jwt.authorize(user.toObject())
         res.json({
           token
         })

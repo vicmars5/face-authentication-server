@@ -1,5 +1,8 @@
+const auth = require('../utils/jwt')
 
 module.exports = (app) => {
+  app.use(auth.validate) // jwt authentication
+
   app.use('/', require('./main.js'))
   app.use('/person-groups', require('./person-groups'))
   app.use('/user-photos', require('./user-photos'))
