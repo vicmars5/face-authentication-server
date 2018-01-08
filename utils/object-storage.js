@@ -48,6 +48,7 @@ const getShareLink = (key, params) => {
       Key: key,
       Expires: expires
     }
+
     if (params) {
       if (params.Bucket) {
         defParams.Bucket = params.Bucket
@@ -56,7 +57,6 @@ const getShareLink = (key, params) => {
         defParams.Expires = params.Expires
       }
     }
-    console.log(defParams)
 
     s3.getSignedUrl('getObject', defParams, (err, url) => {
       if (err) {

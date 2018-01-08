@@ -9,10 +9,7 @@ router
    * @returns {object} - Person groups array
    */
   .get('/', async (req, res, next) => {
-    const groups = await PersonGroup
-      .find({})
-      .populate('members')
-      .lean()
+    const groups = await PersonGroup.find({}).lean()
     res.json({
       data: groups
     })
@@ -53,8 +50,14 @@ router
         return
       }
       const group = await PersonGroup.create({ name })
+      const fgroup = await FaceAPI.createPersonGroup(group.id, {
+        name:  group.name
+      })
       res.json({
-        data: group.toJSON()
+        data: {
+          db: group.toJSON(),
+          group: fgroup
+        }
       })
     } catch (error) {
       next(error)
@@ -71,7 +74,7 @@ router
       const id = req.params.id
       const userId = req.body.user_id
       if (!id || !user_id) {
-        next(new Error('Bad request. body.user_id and params.id are required')
+        next(new Error('Bad request. body.user_id and params.id are required'))
       }
 
       const group = await PersonGroup.findById(id)
@@ -96,7 +99,7 @@ router
   * @param {array<string>} req.body.members - Person group members. Reference
   *     to user.
   */
-  .put('/:id', (req, res, next) => {
+  .put('/:id', async (req, res, next) => {
     try {
       const id = req.params.id
       if (!id) {

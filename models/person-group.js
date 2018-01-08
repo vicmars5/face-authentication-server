@@ -1,14 +1,9 @@
 const mongoose = require('mongoose')
 
 const personGroupSchema = mongoose.Schema({
-  name: { type: String, required: true, unique: true },
-  members: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user'
-  }]
+  name: { type: String, required: true, unique: true }
 })
 
-const PersonGroup = mongoose.model('persongroups', personGroupSchema)
+const PersonGroup = mongoose.model('persongroup', personGroupSchema)
 
 module.exports = PersonGroup
-
