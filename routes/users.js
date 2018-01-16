@@ -2,6 +2,7 @@ const express = require('express')
 const bcrypt = require('../utils/bcrypt')
 const { User } = require('../models')
 const FaceAPI = require('../utils/face-api')
+const ObjectStorage = require('../utils/object-storage')
 const router = express.Router()
 
 /* GET users listing. */
@@ -22,6 +23,13 @@ router
         next(new Error('No id provided'))
       }
       const user = await User.findById(id).lean()
+      await Promise.all(user.photos.map(async (photo) => {
+        const link = await ObjectStorage.getShareLink(photo.key, {
+          Expires: 60 // 60 minutes link lifetime
+        })
+        photo.link = link
+      }))
+
       res.json({
         data: user
       })
