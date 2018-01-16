@@ -9,9 +9,9 @@ router
    * @returns {object} - Person groups array
    */
   .get('/', async (req, res, next) => {
-    const groups = await PersonGroup.find({}).lean()
+    const personGroups = await PersonGroup.find({}).lean()
     res.json({
-      data: groups
+      personGroups
     })
   })
   /**

@@ -21,7 +21,7 @@ router
       if (!id) {
         next(new Error('No id provided'))
       }
-      const user = await User.findById().lean()
+      const user = await User.findById(id).lean()
       res.json({
         data: user
       })
@@ -60,8 +60,10 @@ router
         name: user.firstname + ' ' + user.lastname
       })
       user.faceApiId = personId
-      user.save()
-      res.send(user.toObject())
+      await user.save()
+      res.send({
+        user: user.toObject()
+      })
     } catch (err) {
       next(err)
     }
