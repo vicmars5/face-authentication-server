@@ -49,6 +49,7 @@ router
    * Upload photo to user
    *
    * @param {string} req.params.id - User id
+   * @param {file} req.params.file - Photo
    * @return {object} - response.user, response.sharelink
    */
   .post('/:id', async (req, res, next) => {
