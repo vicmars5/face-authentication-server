@@ -62,13 +62,12 @@ router
     try {
       const user = await User.findById(id).populate('personGroup')
       if (!user) {
-        res.json({
-          error: 'User not found error',
-        })
+        const error = 'User not found error'
+        res.json({ error })
       }
       const { file } = await upload(req, 'file')
       if (!file) {
-        console.error('There is not file in the request')
+        console.error('There is no file in the request')
         res.status(400)
         res.json({
           error: 'There is no file in the request'

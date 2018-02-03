@@ -11,7 +11,8 @@ const expires = configs.s3ExpiresLinkTime
 const uploader = multer({
   storage: multerS3({
     s3,
-    bucket: 'face-recognition',
+    bucket,
+    fieldSize: 5,
     key (req, file, next) {
       console.log(JSON.stringify(file))
       const ext = path.extname(file.originalname)
@@ -28,6 +29,7 @@ const uploader = multer({
 const upload = (req, fieldname) => new Promise((resolve, reject) => {
   uploader.single(fieldname)(req, {}, (err) => {
     if (err) {
+      console.error('error', err)
       reject(err)
     }
     resolve(req)
