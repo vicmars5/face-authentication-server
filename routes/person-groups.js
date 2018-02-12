@@ -118,6 +118,52 @@ router
     }
   })
   /**
+   * Train person group
+   *
+   * @param {string} req.params.id - Person group id
+   */
+  .post('/:id/train', async (req, res, next) => {
+    try {
+      const id = req.params.id
+      const personGroup = await PersonGroup.findById(id)
+      if (!personGroup) {
+        res.status(404)
+        res.json({
+          message: 'Group not found'
+        })
+        return
+      }
+      await FaceAPI.trainPersonGroup(id)
+      res.json({})
+    } catch (err) {
+      next(err)
+    }
+  })
+  /**
+   * Get person group training status
+   * @param {string} req.params.id - Person group id
+   * @return {JSON} status - TODO add details about this instruction
+   */
+  .get('/:id/train', async (req, res, next) => {
+    try {
+      const id = req.params.id
+      const personGroup = await PersonGroup.findById(id)
+      if  (!personGroup) {
+        res.status(404)
+        res.json({
+          message: 'Group not found'
+        })
+        return
+      }
+      const state = await FaceAPI.trainPersonGroupStatus(id)
+      res.json({
+        state
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  })
+  /**
    *    users.
    * Delete person group
    *
