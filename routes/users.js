@@ -15,6 +15,24 @@ router
       next(err)
     }
   })
+  /**
+   * @param {string} req.params.faceApiId
+   */
+  .get('/:faceApiId/face-id', async (req, res, next) => {
+    try {
+      const { faceApiId } = req.params
+      const user = await User.findOne({ faceApiId })
+      if (!user) {
+        res.status(404)
+        res.json({ message: 'User not found' })
+      }
+      res.json({
+        user
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  })
   .get('/:id', async (req, res, next) => {
     try {
       const id = req.params.id
