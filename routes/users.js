@@ -9,7 +9,6 @@ const router = express.Router()
 router
   .get('/', async (req, res, next) => {
     try {
-      console.log('req.user ', req.user)
       const users = await User.find({}).populate('personGroup').lean()
       res.json({ users })
     } catch (err) {

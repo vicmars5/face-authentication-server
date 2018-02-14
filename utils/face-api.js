@@ -165,6 +165,12 @@ const detectFace = async (url, params) => {
  *
  * @param {array<string>} faceIds - Face ids arrays
  * @param {string} personGroupId - Person group id in search
+ *
+ * @return {JSON} - response
+ * @return {array} .faceIds - Array of query faces faceIds
+ * @return {string} .personGroupId
+ * @return {number} .maxNumOfCandidatesReturned
+ * @return {number} .confidenceThreshold
  */
 const identifyFace = async (faceIds, personGroupId ) => {
   const options = {
