@@ -9,11 +9,28 @@ const router = express.Router()
 router
   .get('/', async (req, res, next) => {
     try {
-      console.log('req.user ', req.user)
       const users = await User.find({}).populate('personGroup').lean()
       res.json({ users })
     } catch (err) {
       next(err)
+    }
+  })
+  /**
+   * @param {string} req.params.faceApiId
+   */
+  .get('/:faceApiId/face-id', async (req, res, next) => {
+    try {
+      const { faceApiId } = req.params
+      const user = await User.findOne({ faceApiId })
+      if (!user) {
+        res.status(404)
+        res.json({ message: 'User not found' })
+      }
+      res.json({
+        user
+      })
+    } catch (err) {
+      console.error(err)
     }
   })
   .get('/:id', async (req, res, next) => {
