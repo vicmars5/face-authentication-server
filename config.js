@@ -7,8 +7,10 @@ module.exports = {
   },
   s3: {
     endpoint: 'nyc3.digitaloceanspaces.com',
-    accessKeyId: 'R7P2OBCF5RQQVEPELNXU',
-    secretAccessKey: 'LjdThJj1Xl7vCVomspWRjAl0tapiZ0bIX1YccUfqyXE'
+    // 'R7P2OBCF5RQQVEPELNXU',
+    accessKeyId: 'JKSZYXVZPG57H3ZTCZDE',
+    // 'LjdThJj1Xl7vCVomspWRjAl0tapiZ0bIX1YccUfqyXE'
+    secretAccessKey: 'R23fjki4aN7I8sLex3Z/oJ8+PD6F4gsumgZDIQPcIcE',
   },
   s3Bucket: 'face-recognition',
   s3ExpiresLinkTime: 600,
