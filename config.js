@@ -20,5 +20,11 @@ module.exports = {
     // key 1: 315202b5e8ca4dddb3b3d4d367de903c
     // key 2: d4fb0e8c273740ba8479d527af17092f
     subscription: '315202b5e8ca4dddb3b3d4d367de903c',
+  },
+  mongo: {
+    user: 'server',
+    password: 'Ns12NSd',
+    host: 'ds223509.mlab.com:23509',
+    db: 'face-recognition'
   }
 }
